@@ -183,7 +183,18 @@ button { font: inherit; }
   gap: 10px;
 }
 
-.winning-dropdown { position: relative; z-index: 20; flex: 0 0 auto; margin-bottom: 11px; }
+.hero-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  position: relative;
+  z-index: 20;
+  margin-bottom: 10px;
+}
+
+.winning-dropdown { position: relative; width: 100%; }
 
 .winning-dropdown summary {
   min-width: 112px;
@@ -252,18 +263,14 @@ button { font: inherit; }
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  position: absolute;
-  top: -12px;
-  right: 14px;
-  z-index: 30;
-  min-height: 24px;
-  padding: 0 9px;
+  min-height: 20px;
+  padding: 0 8px;
   border: 1px solid rgba(255,255,255,.8);
   border-radius: 999px;
   background: rgba(255,255,255,.84);
   box-shadow: inset 0 1px 0 white, 0 5px 14px rgba(54,69,113,.1);
   color: rgba(31,44,79,.7);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   backdrop-filter: blur(14px);
 }
@@ -482,11 +489,12 @@ footer > span { color: rgba(28,39,70,.68); font-weight: 760; letter-spacing: .13
   .page-shell::after { width: 72vw; height: 72vw; }
   .lotto-card { max-height: calc(100dvh - 12px); padding: 22px 14px 12px; border-radius: 30px; }
   .hero h1 { margin-top: 10px; font-size: clamp(27px, 8.4vw, 34px); }
+  .hero-actions { gap: 4px; margin-bottom: 9px; }
   .winning-dropdown summary { min-width: 104px; padding: 7px 9px; }
   .winning-menu { width: min(310px, calc(100vw - 32px)); }
   .mobile-break { display: block; }
   .result-panel { margin-top: 13px; padding: 13px 11px 12px; border-radius: 24px; }
-  .panel-visitor { top: -11px; right: 11px; min-height: 23px; padding: 0 8px; font-size: 9px; }
+  .panel-visitor { min-height: 19px; padding: 0 7px; font-size: 8px; }
   .result-heading { align-items: center; gap: 10px; padding-bottom: 10px; }
   .result-heading h2 { font-size: 15px; }
   .draw-mode { min-width: 176px; }
@@ -503,7 +511,7 @@ footer > span { color: rgba(28,39,70,.68); font-weight: 760; letter-spacing: .13
   .lotto-card { max-height: calc(100dvh - 8px); padding: 18px 9px 10px; border-radius: 26px; }
   .hero h1 { font-size: 25px; }
   .hero > p { font-size: 12px; }
-  .winning-dropdown { margin-bottom: 9px; }
+  .hero-actions { margin-bottom: 8px; }
   .winning-dropdown summary { min-width: 96px; padding: 6px 8px; }
   .winning-menu { width: min(300px, calc(100vw - 22px)); }
   .result-panel { padding: 10px 8px; border-radius: 21px; }

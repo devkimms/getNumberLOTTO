@@ -81,30 +81,40 @@ export default function Home() {
               <span>소소한 희망을 위해.</span>
             </h1>
 
-            <details className="winning-dropdown">
-              <summary>
-                <span>최근 당첨번호</span>
-                <strong>{winningDraws[0]?.round}회</strong>
-              </summary>
-              <div className="winning-menu">
-                {winningDraws.map((draw, index) => (
-                  <div className="winning-draw" key={draw.round}>
-                    <div className="winning-draw-heading">
-                      <strong>{index === 0 ? "직전 회차" : "지난 회차"} · {draw.round}회</strong>
-                      <span>{draw.date.slice(5).replace("-", ".")}</span>
+            <div className="hero-actions">
+              <span
+                className={`panel-visitor ${visitorCount === null ? "is-loading" : ""}`}
+                aria-label={visitorCount === null ? "링크 방문자 수 불러오는 중" : `링크 방문자 수 ${visitorCount.toLocaleString()}명`}
+              >
+                <Link2 aria-hidden="true" />
+                링크 방문 {visitorCount === null ? "—" : visitorCount.toLocaleString()}
+              </span>
+
+              <details className="winning-dropdown">
+                <summary>
+                  <span>최근 당첨번호</span>
+                  <strong>{winningDraws[0]?.round}회</strong>
+                </summary>
+                <div className="winning-menu">
+                  {winningDraws.map((draw, index) => (
+                    <div className="winning-draw" key={draw.round}>
+                      <div className="winning-draw-heading">
+                        <strong>{index === 0 ? "직전 회차" : "지난 회차"} · {draw.round}회</strong>
+                        <span>{draw.date.slice(5).replace("-", ".")}</span>
+                      </div>
+                      <div className="winning-balls" aria-label={`${draw.round}회 당첨번호`}>
+                        {draw.numbers.map((number) => (
+                          <span className={`winning-ball ${colorClass(number)}`} key={number}>{number}</span>
+                        ))}
+                        <i aria-hidden="true">+</i>
+                        <span className={`winning-ball bonus ${colorClass(draw.bonus)}`}>{draw.bonus}</span>
+                      </div>
                     </div>
-                    <div className="winning-balls" aria-label={`${draw.round}회 당첨번호`}>
-                      {draw.numbers.map((number) => (
-                        <span className={`winning-ball ${colorClass(number)}`} key={number}>{number}</span>
-                      ))}
-                      <i aria-hidden="true">+</i>
-                      <span className={`winning-ball bonus ${colorClass(draw.bonus)}`}>{draw.bonus}</span>
-                    </div>
-                  </div>
-                ))}
-                <p>동행복권 공식 결과 기준</p>
-              </div>
-            </details>
+                  ))}
+                  <p>※ 동행복권 공식 결과 기준</p>
+                </div>
+              </details>
+            </div>
           </div>
           <p>
             1부터 45까지, 원하는 중복 방식을 선택해
@@ -113,13 +123,6 @@ export default function Home() {
         </header>
 
         <div className="result-panel" aria-live="polite" aria-busy={isDrawing}>
-          <span
-            className={`panel-visitor ${visitorCount === null ? "is-loading" : ""}`}
-            aria-label={visitorCount === null ? "링크 방문자 수 불러오는 중" : `링크 방문자 수 ${visitorCount.toLocaleString()}명`}
-          >
-            <Link2 aria-hidden="true" />
-            링크 방문 {visitorCount === null ? "—" : visitorCount.toLocaleString()}
-          </span>
           <div className="result-heading">
             <div>
               <p className="result-label">YOUR NUMBERS</p>

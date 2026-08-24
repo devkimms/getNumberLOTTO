@@ -2,6 +2,8 @@
 
 1부터 45까지의 숫자 중 **총 30개가 서로 겹치지 않는** 로또 번호 5줄을 생성하는 웹 앱입니다.
 
+**바로 실행:** [GitHub Pages](https://devkimms.github.io/getNumberLOTTO/)
+
 ## 특징
 
 - 한 줄에 중복 없는 번호 6개
@@ -19,6 +21,8 @@ Node.js 22.13 이상이 필요합니다.
 npm install
 npm run dev
 ```
+
+GitHub Pages용 정적 결과물은 `npm run build:pages`로 생성할 수 있습니다.
 
 ## 검증
 

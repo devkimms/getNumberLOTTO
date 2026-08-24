@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Link2 } from "lucide-react";
 import { drawLottoLines, type DrawMode, type LottoLines } from "./lotto";
+import { FALLBACK_WINNING_DRAWS, type WinningDraw } from "./winning-numbers";
 
 const colorClass = (number: number) => {
   if (number <= 10) return "ball-yellow";
@@ -17,6 +19,7 @@ export default function Home() {
   const [drawCount, setDrawCount] = useState(0);
   const [isDrawing, setIsDrawing] = useState(false);
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
+  const [winningDraws, setWinningDraws] = useState<WinningDraw[]>(FALLBACK_WINNING_DRAWS);
 
   const draw = (nextMode: DrawMode = mode) => {
     setIsDrawing(true);
@@ -47,6 +50,16 @@ export default function Home() {
       .then(({ total }) => setVisitorCount(total))
       .catch(() => setVisitorCount(null));
 
+    fetch("/api/winning-numbers")
+      .then((response) => {
+        if (!response.ok) throw new Error("Winning numbers are unavailable");
+        return response.json() as Promise<{ draws: WinningDraw[] }>;
+      })
+      .then(({ draws }) => {
+        if (draws.length >= 2) setWinningDraws(draws.slice(0, 2));
+      })
+      .catch(() => undefined);
+
     return () => window.clearTimeout(initialDraw);
   }, []);
 
@@ -61,11 +74,38 @@ export default function Home() {
             <span className="eyebrow-dot" aria-hidden="true" />
             LOTTO 6/45
           </div>
-          <h1 id="page-title">
-            행운의 숫자,
-            <br />
-            <span>한 번에 완벽하게.</span>
-          </h1>
+          <div className="hero-title-row">
+            <h1 id="page-title">
+              한 주의
+              <br />
+              <span>소소한 희망을 위해.</span>
+            </h1>
+
+            <details className="winning-dropdown">
+              <summary>
+                <span>최근 당첨번호</span>
+                <strong>{winningDraws[0]?.round}회</strong>
+              </summary>
+              <div className="winning-menu">
+                {winningDraws.map((draw, index) => (
+                  <div className="winning-draw" key={draw.round}>
+                    <div className="winning-draw-heading">
+                      <strong>{index === 0 ? "직전 회차" : "지난 회차"} · {draw.round}회</strong>
+                      <span>{draw.date.slice(5).replace("-", ".")}</span>
+                    </div>
+                    <div className="winning-balls" aria-label={`${draw.round}회 당첨번호`}>
+                      {draw.numbers.map((number) => (
+                        <span className={`winning-ball ${colorClass(number)}`} key={number}>{number}</span>
+                      ))}
+                      <i aria-hidden="true">+</i>
+                      <span className={`winning-ball bonus ${colorClass(draw.bonus)}`}>{draw.bonus}</span>
+                    </div>
+                  </div>
+                ))}
+                <p>동행복권 공식 결과 기준</p>
+              </div>
+            </details>
+          </div>
           <p>
             1부터 45까지, 원하는 중복 방식을 선택해
             <br className="mobile-break" /> 다섯 줄을 한 번에 뽑아요.
@@ -73,6 +113,12 @@ export default function Home() {
         </header>
 
         <div className="result-panel" aria-live="polite" aria-busy={isDrawing}>
+          {visitorCount !== null && (
+            <span className="panel-visitor" aria-label={`링크 방문자 수 ${visitorCount.toLocaleString()}명`}>
+              <Link2 aria-hidden="true" />
+              링크 방문 {visitorCount.toLocaleString()}
+            </span>
+          )}
           <div className="result-heading">
             <div>
               <p className="result-label">YOUR NUMBERS</p>
@@ -145,14 +191,7 @@ export default function Home() {
         </div>
 
         <footer>
-          <p>
-            행운은 가볍게, 구매는 책임감 있게.
-            {visitorCount !== null && (
-              <span className="visitor-count" aria-label={`누적 방문자 ${visitorCount.toLocaleString()}명`}>
-                누적 방문 {visitorCount.toLocaleString()}
-              </span>
-            )}
-          </p>
+          <p>행운은 가볍게, 구매는 책임감 있게.</p>
           <span>GOOD LUCK!</span>
         </footer>
       </section>

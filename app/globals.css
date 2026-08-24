@@ -99,13 +99,14 @@ button { font: inherit; }
 }
 
 .lotto-card {
-  width: min(100%, 760px);
+  width: 100%;
+  max-width: 500px;
   max-height: calc(100dvh - 24px);
   position: relative;
   overflow: hidden;
   border: 1px solid var(--glass-line);
-  border-radius: 42px;
-  padding: 32px 38px 18px;
+  border-radius: 34px;
+  padding: 26px 24px 15px;
   background: linear-gradient(145deg, rgba(255,255,255,.52), rgba(255,255,255,.24));
   box-shadow:
     inset 0 1px 1px rgba(255,255,255,.88),
@@ -130,7 +131,7 @@ button { font: inherit; }
   pointer-events: none;
 }
 
-.hero { text-align: center; position: relative; }
+.hero { text-align: left; position: relative; }
 
 .eyebrow {
   display: inline-flex;
@@ -158,9 +159,10 @@ button { font: inherit; }
 }
 
 .hero h1 {
+  min-width: 0;
   margin: 12px 0 10px;
-  font-size: clamp(38px, 5vw, 52px);
-  line-height: 1.04;
+  font-size: clamp(28px, 7vw, 34px);
+  line-height: 1.07;
   letter-spacing: -.06em;
   font-weight: 780;
 }
@@ -173,6 +175,58 @@ button { font: inherit; }
 }
 
 .hero h1 span::after { display: none; }
+
+.hero-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.winning-dropdown { position: relative; z-index: 20; flex: 0 0 auto; margin-bottom: 11px; }
+
+.winning-dropdown summary {
+  min-width: 112px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255,255,255,.76);
+  border-radius: 15px;
+  background: rgba(255,255,255,.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.88), 0 6px 16px rgba(67,85,140,.09);
+  color: rgba(30,41,73,.57);
+  cursor: pointer;
+  list-style: none;
+  backdrop-filter: blur(14px);
+}
+
+.winning-dropdown summary::-webkit-details-marker { display: none; }
+.winning-dropdown summary::after { content: "⌄"; float: right; margin-left: 6px; color: rgba(48,64,104,.5); }
+.winning-dropdown[open] summary::after { transform: rotate(180deg); }
+.winning-dropdown summary span { display: block; margin-bottom: 2px; font-size: 8px; font-weight: 650; }
+.winning-dropdown summary strong { color: rgba(24,35,68,.82); font-size: 11px; }
+.winning-dropdown summary:focus-visible { outline: 3px solid rgba(56,105,255,.34); outline-offset: 2px; }
+
+.winning-menu {
+  position: absolute;
+  top: calc(100% + 7px);
+  right: 0;
+  width: 318px;
+  padding: 13px;
+  border: 1px solid rgba(255,255,255,.78);
+  border-radius: 20px;
+  background: rgba(242,247,255,.86);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 18px 40px rgba(46,60,108,.2);
+  backdrop-filter: blur(28px) saturate(145%);
+}
+
+.winning-draw + .winning-draw { margin-top: 11px; padding-top: 11px; border-top: 1px solid rgba(63,78,118,.1); }
+.winning-draw-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+.winning-draw-heading strong { color: rgba(27,38,70,.78); font-size: 10px; }
+.winning-draw-heading span { color: rgba(38,51,86,.43); font-size: 9px; }
+.winning-balls { display: flex; align-items: center; gap: 4px; }
+.winning-ball { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid rgba(255,255,255,.75); border-radius: 50%; color: rgba(20,30,58,.8); font-size: 9px; font-weight: 760; box-shadow: inset 0 1px 1px rgba(255,255,255,.86); }
+.winning-ball.bonus { outline: 1px dashed rgba(83,68,155,.35); outline-offset: 2px; }
+.winning-balls i { margin: 0 2px; color: rgba(45,57,92,.38); font-size: 10px; font-style: normal; }
+.winning-menu > p { margin: 10px 0 0; text-align: right; color: rgba(39,52,87,.4); font-size: 8px; }
 
 .hero > p {
   margin: 0;
@@ -189,10 +243,32 @@ button { font: inherit; }
   border-radius: 30px;
   background: linear-gradient(145deg, rgba(255,255,255,.52), rgba(255,255,255,.3));
   box-shadow: inset 0 1px 1px rgba(255,255,255,.92), 0 15px 40px rgba(65,78,129,.1);
-  padding: 16px 20px 14px;
+  padding: 16px 16px 14px;
   backdrop-filter: blur(24px) saturate(145%);
   -webkit-backdrop-filter: blur(24px) saturate(145%);
 }
+
+.panel-visitor {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  top: -11px;
+  right: 17px;
+  z-index: 2;
+  min-height: 22px;
+  padding: 0 9px;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 999px;
+  background: rgba(255,255,255,.63);
+  box-shadow: inset 0 1px 0 white, 0 5px 14px rgba(54,69,113,.1);
+  color: rgba(37,50,84,.55);
+  font-size: 8px;
+  font-weight: 700;
+  backdrop-filter: blur(14px);
+}
+
+.panel-visitor svg { width: 11px; height: 11px; stroke-width: 2; color: #5576d7; }
 
 .result-heading {
   display: flex;
@@ -217,7 +293,7 @@ button { font: inherit; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3px;
-  min-width: 218px;
+  min-width: 184px;
   margin: 0;
   padding: 3px;
   border: 1px solid rgba(255,255,255,.78);
@@ -243,7 +319,7 @@ button { font: inherit; }
   display: grid;
   place-items: center;
   min-height: 29px;
-  padding: 0 10px;
+  padding: 0 8px;
   border-radius: 999px;
   color: rgba(34,46,79,.58);
   font-size: 10px;
@@ -265,9 +341,9 @@ button { font: inherit; }
 
 .number-row {
   display: grid;
-  grid-template-columns: 24px minmax(0, 390px);
+  grid-template-columns: 22px minmax(0, 354px);
   justify-content: center;
-  column-gap: 12px;
+  column-gap: 8px;
   align-items: center;
   min-height: 65px;
   border-bottom: 1px solid rgba(74,87,127,.075);
@@ -279,8 +355,8 @@ button { font: inherit; }
   display: grid;
   place-items: center;
   flex: 0 0 auto;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border: 1px solid rgba(255,255,255,.72);
   border-radius: 50%;
   background: rgba(255,255,255,.37);
@@ -325,6 +401,19 @@ button { font: inherit; }
   border-radius: 50%;
   background: linear-gradient(rgba(255,255,255,.78), rgba(255,255,255,0));
   opacity: .68;
+}
+
+.number-ball::after {
+  content: "";
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  bottom: 3px;
+  height: 22%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,255,255,.76), rgba(255,255,255,0) 72%);
+  filter: blur(1px);
+  opacity: .58;
 }
 
 .number-ball:nth-child(2) { animation-delay: 25ms; }
@@ -382,7 +471,6 @@ footer {
 
 footer p { margin: 0; }
 footer > span { color: rgba(28,39,70,.68); font-weight: 760; letter-spacing: .13em; }
-.visitor-count { display: inline-block; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(50,62,96,.16); color: rgba(37,49,81,.68); font-weight: 700; }
 .mobile-break { display: none; }
 
 @media (max-width: 640px) {
@@ -390,26 +478,30 @@ footer > span { color: rgba(28,39,70,.68); font-weight: 760; letter-spacing: .13
   .page-shell::before { width: 85vw; height: 85vw; }
   .page-shell::after { width: 72vw; height: 72vw; }
   .lotto-card { max-height: calc(100dvh - 12px); padding: 22px 14px 12px; border-radius: 30px; }
-  .hero h1 { margin-top: 10px; font-size: clamp(32px, 11vw, 39px); }
+  .hero h1 { margin-top: 10px; font-size: clamp(27px, 8.4vw, 34px); }
+  .winning-dropdown summary { min-width: 104px; padding: 7px 9px; }
+  .winning-menu { width: min(310px, calc(100vw - 32px)); }
   .mobile-break { display: block; }
   .result-panel { margin-top: 13px; padding: 13px 11px 12px; border-radius: 24px; }
   .result-heading { align-items: center; gap: 10px; padding-bottom: 10px; }
   .result-heading h2 { font-size: 15px; }
-  .draw-mode { min-width: 182px; }
+  .draw-mode { min-width: 176px; }
   .draw-mode label span { min-height: 27px; padding: 0 7px; font-size: 9px; }
   .number-row { grid-template-columns: 20px minmax(0, 1fr); column-gap: 7px; min-height: 52px; }
   .line-label { width: 20px; height: 20px; font-size: 8px; }
   .balls { gap: 4px; }
   footer { padding: 10px 4px 0; gap: 10px; }
-  .visitor-count { display: block; margin: 5px 0 0; padding: 0; border: 0; }
 }
 
 /* Galaxy Z Fold cover screens and other extra-narrow portrait viewports. */
 @media (max-width: 360px) {
   .page-shell { padding: 4px; }
   .lotto-card { max-height: calc(100dvh - 8px); padding: 18px 9px 10px; border-radius: 26px; }
-  .hero h1 { font-size: 32px; }
+  .hero h1 { font-size: 25px; }
   .hero > p { font-size: 12px; }
+  .winning-dropdown { margin-bottom: 9px; }
+  .winning-dropdown summary { min-width: 96px; padding: 6px 8px; }
+  .winning-menu { width: min(300px, calc(100vw - 22px)); }
   .result-panel { padding: 10px 8px; border-radius: 21px; }
   .result-heading { gap: 7px; padding-bottom: 8px; }
   .result-label { display: none; }
@@ -425,14 +517,14 @@ footer > span { color: rgba(28,39,70,.68); font-weight: 760; letter-spacing: .13
 }
 
 @media (max-height: 820px) and (min-width: 641px) {
-  .lotto-card { padding: 19px 32px 12px; }
+  .lotto-card { padding: 19px 22px 12px; }
   .eyebrow { min-height: 25px; }
-  .hero h1 { margin: 8px 0 7px; font-size: clamp(36px, 6dvh, 45px); }
+  .hero h1 { margin: 8px 0 7px; font-size: clamp(28px, 5dvh, 33px); }
   .hero > p { font-size: 12px; line-height: 1.4; }
   .result-panel { margin-top: 12px; padding: 12px 16px 11px; }
   .result-heading { padding-bottom: 9px; }
   .number-lines { padding: 4px 0 7px; }
-  .number-row { grid-template-columns: 24px minmax(0, 354px); min-height: 58px; }
+  .number-row { grid-template-columns: 22px minmax(0, 354px); min-height: 58px; }
   .draw-button { min-height: 45px; }
   .draw-note { margin-top: 7px; }
   footer { padding-top: 9px; }

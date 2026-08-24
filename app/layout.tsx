@@ -4,7 +4,7 @@ import "./globals.css";
 export const dynamic = "force-static";
 
 const title = "행운번호 | 중복 없는 로또 번호 생성기";
-const description = "1부터 45까지, 전체 30개 또는 각 줄 기준의 중복 방식을 골라 로또 번호 5줄을 생성합니다.";
+const description = "중복 방식을 골라 로또 번호 5줄을 만들고, 동행복권의 최근 당첨번호도 확인합니다.";
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://get-number-lotto.kimmmms.chatgpt.site").replace(/\/$/, "");
 const imageUrl = `${siteUrl}/og.png`;
 

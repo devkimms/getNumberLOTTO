@@ -22,6 +22,7 @@ test("server-renders the lotto product page", async () => {
   assert.match(html, /<title>행운번호 \| 중복 없는 로또 번호 생성기<\/title>/i);
   assert.match(html, /행운의 숫자/);
   assert.match(html, /새 번호 5줄 뽑기/);
-  assert.match(html, /30개 전체 중복 없음/);
+  assert.match(html, /30개 전체/);
+  assert.match(html, /각 줄만/);
   assert.doesNotMatch(html, /codex-preview|Building your site|react-loading-skeleton/i);
 });

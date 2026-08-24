@@ -12,12 +12,16 @@
 * { box-sizing: border-box; }
 
 html {
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
   background: #cddcff;
 }
 
 body {
   margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -26,13 +30,15 @@ body {
 button { font: inherit; }
 
 .page-shell {
-  min-height: 100svh;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
   display: grid;
   place-items: center;
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 36px 20px;
+  padding: 12px 20px;
   background:
     radial-gradient(circle at 18% 16%, rgba(255, 221, 165, .9) 0, rgba(255, 221, 165, 0) 34%),
     radial-gradient(circle at 88% 14%, rgba(169, 228, 255, .9) 0, rgba(169, 228, 255, 0) 36%),
@@ -93,12 +99,13 @@ button { font: inherit; }
 }
 
 .lotto-card {
-  width: min(100%, 880px);
+  width: min(100%, 760px);
+  max-height: calc(100dvh - 24px);
   position: relative;
   overflow: hidden;
   border: 1px solid var(--glass-line);
   border-radius: 42px;
-  padding: 48px 54px 25px;
+  padding: 32px 38px 18px;
   background: linear-gradient(145deg, rgba(255,255,255,.52), rgba(255,255,255,.24));
   box-shadow:
     inset 0 1px 1px rgba(255,255,255,.88),
@@ -151,8 +158,8 @@ button { font: inherit; }
 }
 
 .hero h1 {
-  margin: 18px 0 13px;
-  font-size: clamp(38px, 6vw, 60px);
+  margin: 12px 0 10px;
+  font-size: clamp(38px, 5vw, 52px);
   line-height: 1.04;
   letter-spacing: -.06em;
   font-weight: 780;
@@ -177,12 +184,12 @@ button { font: inherit; }
 
 .result-panel {
   position: relative;
-  margin-top: 28px;
+  margin-top: 18px;
   border: 1px solid rgba(255,255,255,.72);
   border-radius: 30px;
   background: linear-gradient(145deg, rgba(255,255,255,.52), rgba(255,255,255,.3));
   box-shadow: inset 0 1px 1px rgba(255,255,255,.92), 0 15px 40px rgba(65,78,129,.1);
-  padding: 23px 27px 21px;
+  padding: 16px 20px 14px;
   backdrop-filter: blur(24px) saturate(145%);
   -webkit-backdrop-filter: blur(24px) saturate(145%);
 }
@@ -192,7 +199,7 @@ button { font: inherit; }
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 0 3px 18px;
+  padding: 0 2px 12px;
   border-bottom: 1px solid rgba(74,87,127,.1);
 }
 
@@ -206,40 +213,63 @@ button { font: inherit; }
 
 .result-heading h2 { margin: 0; font-size: 17px; letter-spacing: -.035em; font-weight: 720; }
 
-.unique-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 31px;
-  padding: 0 11px;
+.draw-mode {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  min-width: 218px;
+  margin: 0;
+  padding: 3px;
   border: 1px solid rgba(255,255,255,.78);
   border-radius: 999px;
-  background: rgba(224, 255, 236, .48);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.88);
-  color: #26764c;
-  font-size: 10px;
-  font-weight: 720;
+  background: rgba(255,255,255,.28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.84);
   backdrop-filter: blur(12px);
 }
 
-.unique-badge span {
-  display: grid;
-  place-items: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  color: white;
-  background: #39a56c;
-  font-size: 9px;
+.draw-mode legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
-.number-lines { padding: 10px 0 13px; transition: opacity .18s, transform .18s, filter .18s; }
+.draw-mode label { cursor: pointer; }
+.draw-mode input { position: absolute; opacity: 0; pointer-events: none; }
+
+.draw-mode label span {
+  display: grid;
+  place-items: center;
+  min-height: 29px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: rgba(34,46,79,.58);
+  font-size: 10px;
+  font-weight: 720;
+  white-space: nowrap;
+  transition: background .18s, color .18s, box-shadow .18s;
+}
+
+.draw-mode input:checked + span {
+  color: #315ed1;
+  background: rgba(255,255,255,.74);
+  box-shadow: 0 3px 10px rgba(53,68,115,.12), inset 0 1px 0 white;
+}
+
+.draw-mode input:focus-visible + span { outline: 3px solid rgba(56,105,255,.32); }
+
+.number-lines { padding: 6px 0 9px; transition: opacity .18s, transform .18s, filter .18s; }
 .number-lines.is-drawing { opacity: .34; transform: scale(.986); filter: blur(2px); }
 
 .number-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 390px);
+  justify-content: center;
+  column-gap: 12px;
   align-items: center;
-  min-height: 57px;
+  min-height: 65px;
   border-bottom: 1px solid rgba(74,87,127,.075);
 }
 
@@ -251,7 +281,6 @@ button { font: inherit; }
   flex: 0 0 auto;
   width: 24px;
   height: 24px;
-  margin-right: 24px;
   border: 1px solid rgba(255,255,255,.72);
   border-radius: 50%;
   background: rgba(255,255,255,.37);
@@ -263,10 +292,9 @@ button { font: inherit; }
 
 .balls {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 50px));
-  justify-content: space-between;
-  flex: 1;
-  gap: 12px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
   min-width: 0;
   container-type: inline-size;
 }
@@ -318,7 +346,7 @@ button { font: inherit; }
 
 .draw-button {
   width: 100%;
-  min-height: 53px;
+  min-height: 49px;
   border: 1px solid rgba(255,255,255,.78);
   border-radius: 999px;
   background: linear-gradient(135deg, rgba(63,118,255,.88), rgba(105,80,232,.82));
@@ -338,7 +366,7 @@ button { font: inherit; }
 .draw-button:disabled { cursor: wait; }
 .button-icon { display: inline-block; margin-right: 7px; font-size: 18px; vertical-align: -1px; }
 
-.draw-note { margin: 14px 0 0; text-align: center; color: rgba(43,56,91,.48); font-size: 10px; }
+.draw-note { margin: 10px 0 0; text-align: center; color: rgba(43,56,91,.48); font-size: 10px; }
 .draw-note > span:first-child { margin-right: 5px; color: #7b67e9; }
 .draw-count { white-space: nowrap; }
 
@@ -347,7 +375,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  padding: 22px 6px 0;
+  padding: 14px 6px 0;
   color: rgba(37,49,81,.5);
   font-size: 10px;
 }
@@ -358,38 +386,65 @@ footer > span { color: rgba(28,39,70,.68); font-weight: 760; letter-spacing: .13
 .mobile-break { display: none; }
 
 @media (max-width: 640px) {
-  .page-shell { padding: 12px; align-items: start; }
+  .page-shell { padding: 6px; align-items: center; }
   .page-shell::before { width: 85vw; height: 85vw; }
   .page-shell::after { width: 72vw; height: 72vw; }
-  .lotto-card { padding: 39px 16px 21px; border-radius: 34px; }
-  .hero h1 { margin-top: 16px; font-size: 39px; }
+  .lotto-card { max-height: calc(100dvh - 12px); padding: 22px 14px 12px; border-radius: 30px; }
+  .hero h1 { margin-top: 10px; font-size: clamp(32px, 11vw, 39px); }
   .mobile-break { display: block; }
-  .result-panel { margin-top: 24px; padding: 19px 13px 18px; border-radius: 25px; }
-  .result-heading { align-items: flex-end; }
+  .result-panel { margin-top: 13px; padding: 13px 11px 12px; border-radius: 24px; }
+  .result-heading { align-items: center; gap: 10px; padding-bottom: 10px; }
   .result-heading h2 { font-size: 15px; }
-  .unique-badge { font-size: 9px; padding: 0 8px; }
-  .number-row { min-height: 53px; }
-  .line-label { width: 20px; height: 20px; margin-right: 9px; font-size: 8px; }
-  .balls { gap: 5px; }
-  footer { padding: 21px 4px 0; gap: 10px; }
+  .draw-mode { min-width: 182px; }
+  .draw-mode label span { min-height: 27px; padding: 0 7px; font-size: 9px; }
+  .number-row { grid-template-columns: 20px minmax(0, 1fr); column-gap: 7px; min-height: 52px; }
+  .line-label { width: 20px; height: 20px; font-size: 8px; }
+  .balls { gap: 4px; }
+  footer { padding: 10px 4px 0; gap: 10px; }
   .visitor-count { display: block; margin: 5px 0 0; padding: 0; border: 0; }
 }
 
 /* Galaxy Z Fold cover screens and other extra-narrow portrait viewports. */
 @media (max-width: 360px) {
-  .page-shell { padding: 6px; }
-  .lotto-card { padding: 34px 10px 18px; border-radius: 30px; }
-  .hero h1 { font-size: 34px; }
+  .page-shell { padding: 4px; }
+  .lotto-card { max-height: calc(100dvh - 8px); padding: 18px 9px 10px; border-radius: 26px; }
+  .hero h1 { font-size: 32px; }
   .hero > p { font-size: 12px; }
-  .result-panel { padding: 17px 10px 16px; border-radius: 22px; }
-  .result-heading { flex-direction: column; align-items: flex-start; gap: 9px; padding-bottom: 14px; }
-  .unique-badge { min-height: 27px; }
-  .number-row { min-height: 48px; }
-  .line-label { width: 18px; height: 18px; margin-right: 6px; }
+  .result-panel { padding: 10px 8px; border-radius: 21px; }
+  .result-heading { gap: 7px; padding-bottom: 8px; }
+  .result-label { display: none; }
+  .result-heading h2 { font-size: 14px; }
+  .draw-mode { min-width: 164px; }
+  .draw-mode label span { padding: 0 5px; font-size: 8px; }
+  .number-row { grid-template-columns: 18px minmax(0, 1fr); column-gap: 5px; min-height: 46px; }
+  .line-label { width: 18px; height: 18px; }
   .balls { gap: 3px; }
   .draw-button { min-height: 49px; font-size: 13px; }
   .draw-note { padding: 0 8px; line-height: 1.45; }
   footer { align-items: flex-end; font-size: 9px; }
+}
+
+@media (max-height: 820px) and (min-width: 641px) {
+  .lotto-card { padding: 19px 32px 12px; }
+  .eyebrow { min-height: 25px; }
+  .hero h1 { margin: 8px 0 7px; font-size: clamp(36px, 6dvh, 45px); }
+  .hero > p { font-size: 12px; line-height: 1.4; }
+  .result-panel { margin-top: 12px; padding: 12px 16px 11px; }
+  .result-heading { padding-bottom: 9px; }
+  .number-lines { padding: 4px 0 7px; }
+  .number-row { grid-template-columns: 24px minmax(0, 354px); min-height: 58px; }
+  .draw-button { min-height: 45px; }
+  .draw-note { margin-top: 7px; }
+  footer { padding-top: 9px; }
+}
+
+@media (max-height: 700px) {
+  .eyebrow { display: none; }
+  .hero h1 { margin-top: 0; }
+  .hero > p { font-size: 11px; }
+  .number-row { min-height: 48px; }
+  .draw-note { display: none; }
+  footer { padding-top: 7px; }
 }
 
 @media (prefers-reduced-transparency: reduce) {

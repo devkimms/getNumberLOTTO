@@ -261,20 +261,29 @@ button { font: inherit; }
   font-weight: 760;
 }
 
-.balls { display: flex; justify-content: space-between; flex: 1; gap: 12px; }
+.balls {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 39px));
+  justify-content: space-between;
+  flex: 1;
+  gap: 12px;
+  min-width: 0;
+  container-type: inline-size;
+}
 
 .number-ball {
   display: grid;
   place-items: center;
   position: relative;
   overflow: hidden;
-  width: 39px;
-  height: 39px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
   border-radius: 50%;
   border: 1px solid rgba(255,255,255,.8);
   box-shadow: inset 0 1px 1px rgba(255,255,255,.9), 0 5px 14px rgba(53,68,115,.11);
   color: rgba(20,30,58,.86);
-  font-size: 13px;
+  font-size: clamp(8px, 5cqi, 13px);
   font-weight: 760;
   backdrop-filter: blur(10px) saturate(150%);
   animation: ball-in .34s both cubic-bezier(.22,.8,.26,1);
@@ -362,9 +371,25 @@ footer > span { color: rgba(28,39,70,.68); font-weight: 760; letter-spacing: .13
   .number-row { min-height: 53px; }
   .line-label { width: 20px; height: 20px; margin-right: 9px; font-size: 8px; }
   .balls { gap: 5px; }
-  .number-ball { width: clamp(33px, 10.3vw, 39px); height: clamp(33px, 10.3vw, 39px); font-size: 12px; }
   footer { padding: 21px 4px 0; gap: 10px; }
   .visitor-count { display: block; margin: 5px 0 0; padding: 0; border: 0; }
+}
+
+/* Galaxy Z Fold cover screens and other extra-narrow portrait viewports. */
+@media (max-width: 360px) {
+  .page-shell { padding: 6px; }
+  .lotto-card { padding: 34px 10px 18px; border-radius: 30px; }
+  .hero h1 { font-size: 34px; }
+  .hero > p { font-size: 12px; }
+  .result-panel { padding: 17px 10px 16px; border-radius: 22px; }
+  .result-heading { flex-direction: column; align-items: flex-start; gap: 9px; padding-bottom: 14px; }
+  .unique-badge { min-height: 27px; }
+  .number-row { min-height: 48px; }
+  .line-label { width: 18px; height: 18px; margin-right: 6px; }
+  .balls { gap: 3px; }
+  .draw-button { min-height: 49px; font-size: 13px; }
+  .draw-note { padding: 0 8px; line-height: 1.45; }
+  footer { align-items: flex-end; font-size: 9px; }
 }
 
 @media (prefers-reduced-transparency: reduce) {

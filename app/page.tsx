@@ -113,12 +113,13 @@ export default function Home() {
         </header>
 
         <div className="result-panel" aria-live="polite" aria-busy={isDrawing}>
-          {visitorCount !== null && (
-            <span className="panel-visitor" aria-label={`링크 방문자 수 ${visitorCount.toLocaleString()}명`}>
-              <Link2 aria-hidden="true" />
-              링크 방문 {visitorCount.toLocaleString()}
-            </span>
-          )}
+          <span
+            className={`panel-visitor ${visitorCount === null ? "is-loading" : ""}`}
+            aria-label={visitorCount === null ? "링크 방문자 수 불러오는 중" : `링크 방문자 수 ${visitorCount.toLocaleString()}명`}
+          >
+            <Link2 aria-hidden="true" />
+            링크 방문 {visitorCount === null ? "—" : visitorCount.toLocaleString()}
+          </span>
           <div className="result-heading">
             <div>
               <p className="result-label">YOUR NUMBERS</p>

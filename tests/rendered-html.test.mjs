@@ -24,6 +24,7 @@ test("server-renders the lotto product page", async () => {
   assert.match(html, /한 주의/);
   assert.match(html, /소소한 희망을 위해/);
   assert.match(html, /최근 당첨번호/);
+  assert.match(html, /링크 방문/);
   assert.match(html, /새 번호 5줄 뽑기/);
   assert.match(html, /30개 전체/);
   assert.match(html, /각 줄만/);

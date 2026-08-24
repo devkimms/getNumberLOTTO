@@ -253,22 +253,23 @@ button { font: inherit; }
   align-items: center;
   gap: 5px;
   position: absolute;
-  top: -11px;
-  right: 17px;
-  z-index: 2;
-  min-height: 22px;
+  top: -12px;
+  right: 14px;
+  z-index: 30;
+  min-height: 24px;
   padding: 0 9px;
   border: 1px solid rgba(255,255,255,.8);
   border-radius: 999px;
-  background: rgba(255,255,255,.63);
+  background: rgba(255,255,255,.84);
   box-shadow: inset 0 1px 0 white, 0 5px 14px rgba(54,69,113,.1);
-  color: rgba(37,50,84,.55);
-  font-size: 8px;
+  color: rgba(31,44,79,.7);
+  font-size: 9px;
   font-weight: 700;
   backdrop-filter: blur(14px);
 }
 
 .panel-visitor svg { width: 11px; height: 11px; stroke-width: 2; color: #5576d7; }
+.panel-visitor.is-loading { color: rgba(31,44,79,.48); }
 
 .result-heading {
   display: flex;
@@ -396,24 +397,26 @@ button { font: inherit; }
 .number-ball::before {
   content: "";
   position: absolute;
-  inset: 2px 5px auto;
-  height: 35%;
+  top: -2px;
+  left: 7%;
+  right: 7%;
+  height: 42%;
   border-radius: 50%;
-  background: linear-gradient(rgba(255,255,255,.78), rgba(255,255,255,0));
-  opacity: .68;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.88), rgba(255,255,255,.54) 42%, rgba(255,255,255,0) 78%);
+  opacity: .76;
 }
 
 .number-ball::after {
   content: "";
   position: absolute;
-  left: 20%;
-  right: 20%;
-  bottom: 3px;
-  height: 22%;
+  left: 14%;
+  right: 14%;
+  bottom: -2px;
+  height: 25%;
   border-radius: 50%;
   background: radial-gradient(ellipse, rgba(255,255,255,.76), rgba(255,255,255,0) 72%);
   filter: blur(1px);
-  opacity: .58;
+  opacity: .64;
 }
 
 .number-ball:nth-child(2) { animation-delay: 25ms; }
@@ -483,6 +486,7 @@ footer > span { color: rgba(28,39,70,.68); font-weight: 760; letter-spacing: .13
   .winning-menu { width: min(310px, calc(100vw - 32px)); }
   .mobile-break { display: block; }
   .result-panel { margin-top: 13px; padding: 13px 11px 12px; border-radius: 24px; }
+  .panel-visitor { top: -11px; right: 11px; min-height: 23px; padding: 0 8px; font-size: 9px; }
   .result-heading { align-items: center; gap: 10px; padding-bottom: 10px; }
   .result-heading h2 { font-size: 15px; }
   .draw-mode { min-width: 176px; }
